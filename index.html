@@ -1,44 +1,64 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-        <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
-        <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
-        <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
-    </head>
 
-    <body style="margin: 0; overflow: hidden;">
-        <a-scene
-            renderer="logarithmicDepthBuffer: true;"
-            embedded
-            loading-screen="enabled: false;"
-            arjs="sourceType: webcam; debugUIEnabled: false;"
-        >
-            <a-assets>
-                <a-asset-item
-                    id="animated-asset"
-                    src="assets/asset.glb"
-                ></a-asset-item>
-            </a-assets>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>GeoAR.js demo</title>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+    <script src="play-all-model-animation.js"></script>
+    <!-- <script src="script.js"></script> -->
 
-                <a-entity
-                    look-at="[gps-camera]"
-                    animation-mixer="loop: repeat"
-                    gltf-model="#animated-asset"
-                    scale="0.0003477632491902377 0.0003477632491902377 0.0003477632491902377"
-                    gps-entity-place="latitude: 43.665539; longitude: -79.33712;"
-                ></a-entity>
-                <a-entity
-                    look-at="[gps-camera]"
-                    animation-mixer="loop: repeat"
-                    gltf-model="#animated-asset"
-                    scale="0.0003477632491902377 0.0003477632491902377 0.0003477632491902377"
-                    gps-entity-place="latitude: 40.782864; longitude: -73.965355;"
-                ></a-entity>
+</head>
 
-            <a-camera gps-camera rotation-reader></a-camera>
-        </a-scene>
-    </body>
+<body style="margin: 0; overflow: hidden;">
+    <a-scene vr-mode-ui="enabled: false" embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+
+        <a-assets>
+            <img id="boxTexture" src="https://i.imgur.com/mYmmbrp.jpg">
+            <img id="skyTexture" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg">
+            <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg">
+            <audio src="./assets//Point10.mp3" autoplay preload></audio>
+            <a-asset-item id="flower" src="./assets/flower/scene.gltf"></a-asset-item>
+            <a-asset-item id="bird" src="./assets/bird/scene.gltf"></a-asset-item>
+            <a-asset-item id="butterfly" src="./assets/bird/scene.gltf"></a-asset-item>
+
+        </a-assets>
+        <!-- 3d models -->
+        <!-- <a-entity gltf-model="#cityModel" play-all-model-animations modify-materials></a-entity> -->
+         <a-entity  position="10 0 0" scale="0.02 0.02 0.02" gltf-model="#flower"  play-all-model-animations modify-materials></a-entity> 
+         <a-entity  position="0 5  -10" scale="0.02 0.02 0.02" gltf-model="#bird" autoscale="0.2"play-all-model-animations modify-materials></a-entity> 
+         <a-entity  position="0 8  -5" scale="0.02 0.02 0.02" gltf-model="#butterfly" autoscale="0.2"play-all-model-animations modify-materials></a-entity> 
+
+        <!-- <a-box src="#boxTexture" position="0 2 -15" rotation="0 45 45" scale="2 2 2"
+            animation="property: object3D.position.y; to: 2.2; dir: alternate; dur: 2000; loop: true"></a-box> -->
+
+        <a-sky src="#skyTexture"></a-sky>
+
+        <a-light type="ambient" color="#445451"></a-light>
+        <a-light type="point" intensity="2" position="2 4 4"></a-light>
+        <a-text value="This content will always face you." look-at="[gps-camera]" scale="120 120 120"
+            gps-entity-place="latitude: 40; longitude: -72;"></a-text>
+        <a-camera gps-camera rotation-reader> </a-camera>
+    </a-scene>
+</body>
+<script>
+    AFRAME.registerComponent('modify-materials', {
+      init: function () {
+        // Wait for model to load.
+        this.el.addEventListener('model-loaded', () => {
+          // Grab the mesh / scene.
+          const obj = this.el.getObject3D('mesh');
+          // Go over the submeshes and modify materials we want.
+          obj.traverse(node => {
+            if (node.name.indexOf('ship') !== -1) {
+              node.material.color.set('red');
+            }
+          });
+        });
+      }
+    });
+  </script>
 </html>
