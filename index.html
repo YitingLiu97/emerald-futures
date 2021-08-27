@@ -2,63 +2,133 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>GeoAR.js demo</title>
-    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
-    <script src="play-all-model-animation.js"></script>
-    <!-- <script src="script.js"></script> -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>ChromicDuo EmeraldFuture</title>
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+  <script src="play-all-model-animation.js"></script>
+  <!-- <script src="script.js"></script> -->
+  <script src="ocean-plane.js"></script>
+  <script src="displacement-offset-shader.js"></script>
 
+  <style src="style.css"></style>
 </head>
 
-<body style="margin: 0; overflow: hidden;">
-    <a-scene vr-mode-ui="enabled: false" embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+<body>
+  <!-- <button id="myButton" onclick="toggle()">
+    TOGGLE
+  </button> -->
+  <!-- <div id="scene" style="display: none;">
+</div> -->
 
-        <a-assets>
-            <img id="boxTexture" src="https://i.imgur.com/mYmmbrp.jpg">
-            <img id="skyTexture" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg">
-            <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg">
-            <audio src="./assets//Point10.mp3" autoplay preload></audio>
-            <a-asset-item id="flower" src="./assets/flower/scene.gltf"></a-asset-item>
-            <a-asset-item id="bird" src="./assets/bird/scene.gltf"></a-asset-item>
-            <a-asset-item id="butterfly" src="./assets/bird/scene.gltf"></a-asset-item>
+    <!-- <div id="intro" style="display: block;">
+    </div> -->
 
-        </a-assets>
-        <!-- 3d models -->
-        <!-- <a-entity gltf-model="#cityModel" play-all-model-animations modify-materials></a-entity> -->
-         <a-entity  position="10 0 0" scale="0.02 0.02 0.02" gltf-model="#flower"  play-all-model-animations modify-materials></a-entity> 
-         <a-entity  position="0 5  -10" scale="0.02 0.02 0.02" gltf-model="#bird" autoscale="0.2"play-all-model-animations modify-materials></a-entity> 
-         <a-entity  position="0 8  -5" scale="0.02 0.02 0.02" gltf-model="#butterfly" autoscale="0.2"play-all-model-animations modify-materials></a-entity> 
+    <a-scene  vr-mode-ui="enabled: false"  arjs="sourceType: webcam; debugUIEnabled: false;">
 
-        <!-- <a-box src="#boxTexture" position="0 2 -15" rotation="0 45 45" scale="2 2 2"
-            animation="property: object3D.position.y; to: 2.2; dir: alternate; dur: 2000; loop: true"></a-box> -->
+      <a-assets>
+        <img id="water-normal" src="//raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/waternormals.jpg"
+          crossorigin="anonymous" />
 
-        <a-sky src="#skyTexture"></a-sky>
+        <img id="boxTexture" src="https://i.imgur.com/mYmmbrp.jpg">
+        <img id="skyTexture" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg">
+        <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg">
+        <audio id="ambient" src="./assets//Point10.mp3" autoplay preload></audio>
+        <a-asset-item id="flower" src="./assets/flower/scene.gltf"></a-asset-item>
+        <a-asset-item id="bird" src="./assets/bird/scene.gltf"></a-asset-item>
+        <a-asset-item id="butterfly" src="./assets/butterfly/butterfly.gltf"></a-asset-item>
 
-        <a-light type="ambient" color="#445451"></a-light>
-        <a-light type="point" intensity="2" position="2 4 4"></a-light>
-        <a-text value="This content will always face you." look-at="[gps-camera]" scale="120 120 120"
-            gps-entity-place="latitude: 40; longitude: -72;"></a-text>
-        <a-camera gps-camera rotation-reader> </a-camera>
+      </a-assets>
+
+      <a-entity id="#ambientSound" sound="src:#ambient; loop:false;"></a-entity>
+      <!-- <a-entity position="10 0 0" scale="0.02 0.02 0.02" gltf-model="#flower" play-all-model-animations
+        modify-materials>
+      </a-entity>
+      <a-entity position="5 0 0" scale="0.002 0.002 0.002" gltf-model="#butterfly" autoscale="0.2"
+        play-all-model-animations modify-materials></a-entity> -->
+      <a-entity rotation="0 0 0" animation="property: rotation; to: 0 360 0; loop: true; dur: 30000">
+        <!-- <a-sphere position="20 0 0" color="mediumseagreen" elasticity="400"></a-sphere> -->
+        <a-sphere material="shader:displacement-offset" myoffset-updater scale="1 1 1" radius="0.2" position="20 0 0"
+        segments-height="128" segments-width="128">
+        <a-animation attribute="scale" direction="alternate-reverse" dur="5000" from="1 1 1" to="4 4 4"
+          repeat="indefinite"></a-animation>
+      </a-sphere>
+
+        <!-- <a-entity position="10 0 0" rotation="0 180 0" scale="0.002 0.002 0.002" gltf-model="#butterfly" autoscale="0.2"
+          play-all-model-animations modify-materials></a-entity> -->
+          <a-sphere position="0 10 0" material="shader:displacement-offset"></a-sphere>
+
+      </a-entity>
+
+      <a-entity rotation="0 0 0" animation="property: rotation; to: 0 360 20; loop: true; dur: 50000">
+        <a-sphere position="0 10 0" material="shader:displacement-offset"></a-sphere>
+        <a-sphere position="0 5 0" material="shader:displacement-offset"></a-sphere>
+    
+      </a-entity>
+
+
+      <!-- displacement offset shader -->
+      <a-sphere material="shader:displacement-offset" myoffset-updater scale="1 1 1" radius="0.2" position="-5 3 -2"
+        segments-height="128" segments-width="128">
+        <a-animation attribute="scale" direction="alternate-reverse" dur="5000" from="1 1 1" to="4 4 4"
+          repeat="indefinite"></a-animation>
+      </a-sphere>
+
+      <a-sphere material="shader:displacement-offset" myoffset-updater scale="1 1 1" radius="0.2" position="2 1.5 -2"
+      segments-height="10" segments-width="10">
+      <a-animation attribute="position" direction="alternate-reverse" dur="1000" from="1 1 1" to="4 4 4"
+        repeat="indefinite"></a-animation>
+    </a-sphere>
+
+      <a-sphere material="shader:displacement-offset" myoffset-updater scale="1 1 1" radius="0.2" position="0 8 -5"
+      segments-height="50" segments-width="50">
+      <a-animation attribute="rotation" direction="alternate-reverse" dur="5000" from="1 2 1" to="4 8 4"
+        repeat="indefinite"></a-animation>
+    </a-sphere>
+      <!-- can add dynamic lighting in it  -->
+
+      <!-- <a-ocean-plane id="oceanShader" position="0 0 -1" material="normalMap: #water-normal; sphericalEnvMap: #groundTexture;"></a-ocean-plane> -->
+
+      <!-- <a-sky src="#skyTexture" radius="100"> </a-sky> -->
+
+      <a-light type="ambient" intensity="1" color="#445451"></a-light>
+      <a-light type="area" intensity="0.2" position="2 4 4"></a-light>
+    
+      <a-text value="This content will always face you." look-at="[gps-camera]" scale="120 120 120"
+        gps-entity-place="latitude: 40; longitude: -72;"></a-text>
+      <a-camera gps-camera rotation-reader> </a-camera>
+
+
     </a-scene>
+
+
 </body>
+
+
+
 <script>
-    AFRAME.registerComponent('modify-materials', {
-      init: function () {
-        // Wait for model to load.
-        this.el.addEventListener('model-loaded', () => {
-          // Grab the mesh / scene.
-          const obj = this.el.getObject3D('mesh');
-          // Go over the submeshes and modify materials we want.
-          obj.traverse(node => {
-            if (node.name.indexOf('ship') !== -1) {
-              node.material.color.set('red');
-            }
-          });
+
+
+
+
+  AFRAME.registerComponent('modify-materials', {
+    init: function () {
+      // Wait for model to load.
+      this.el.addEventListener('model-loaded', () => {
+        // Grab the mesh / scene.
+        const obj = this.el.getObject3D('mesh');
+        // Go over the submeshes and modify materials we want.
+        obj.traverse(node => {
+          if (node.name.indexOf('ship') !== -1) {
+            // node.material.color.set('red');
+          }
+
         });
-      }
-    });
-  </script>
+      });
+    }
+  });
+</script>
+
 </html>
