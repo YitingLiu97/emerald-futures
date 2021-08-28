@@ -15,38 +15,153 @@
     <script src="play-all-model-animation.js"></script>
     <script src="./src/displacement-offset-shader.js"></script>
     <script src="./src/shader-grid-glitch.js"></script>
+    <link rel="stylesheet" href="./styles.css">
 
-    <style src="style.css"></style>
+    <!-- adding google analytics -->
+
 </head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+
+    }
+
+    .a-loader-title {
+        color: red;
+        display: block;
+        width: 100vw;
+        height: 100vh;
+
+    }
+
+
+
+    /* #intro {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    text-align: left;
+    z-index: -1;
+    display: block;
+    overflow: hidden;
+    background: green;
+} */
+
+
+    #credits {
+        background-color: black;
+        color: white;
+        display: none;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        z-index: 10000;
+        overflow: hidden
+    }
+
+    .center {
+        margin: 0 auto;
+        border: 3px solid green;
+        width: auto;
+        height: 100vh;
+        padding: 10%;
+
+    }
+
+    .center p,
+    .center h1 {
+        padding: 10% 0;
+        font-size: large;
+
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    .center h1 {
+        font-size: xx-large;
+    }
+
+
+    .myButton {
+        box-shadow: inset 0px 1px 40px 0px #ffffff;
+        background: linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+        background-color: #ffffff;
+        border-radius: 6px;
+        border: 1px solid #dcdcdc;
+        display: inline-block;
+        cursor: pointer;
+        color: #666666;
+        font-family: Georgia;
+        font-size: 22px;
+        font-weight: bold;
+        padding: 16px 48px;
+        text-decoration: none;
+        text-shadow: 0px 0px 0px #ffffff;
+        position: relative;
+    }
+
+    .myButton:hover {
+        background: linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+        background-color: #f6f6f6;
+    }
+
+    .myButton:active {
+        position: relative;
+        top: 1px;
+    }
+</style>
 
 <body>
 
 
-    <a-scene vr-mode-ui="enabled: false" arjs="sourceType: webcam; debugUIEnabled: false;">
+    <div id="intro">
+        <div id="myButton">welcome</div>
+    </div>
+    <!-- <div id="intro" style="width: 100%; height: 100%; position: fixed; left: 0; top: 0; z-index: -1; overflow: hidden">
+        <div id="htmlElement" style="background: #F8F8F8; color: #333; font-size: 48px">Welcome to!</div>
+    </div>
+-->
+<!-- the background is still camera -->
+    <div id="embeddedScene" style="z-index:-1;display:block;">
+        <a-scene id="scene"
+            loading-screen=" dotsColor:lightblue;backgroundColor: lightblue; enabled: false;autoplay:false;"
+            vr-mode-ui="enabled: false" arjs="sourceType: webcam; debugUIEnabled: false;autoplay:false;">
 
-        <a-assets>
-            <img id="water-normal"
-                src="//raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/waternormals.jpg"
-                crossorigin="anonymous" />
 
-            <img id="boxTexture" src="https://i.imgur.com/mYmmbrp.jpg">
-            <img id="skyTexture" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg">
-            <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg">
-            <a-asset-item id="flower" src="./assets/flower/scene.gltf"></a-asset-item>
-            <a-asset-item id="bird" src="./assets/bird/scene.gltf"></a-asset-item>
-            <a-asset-item id="butterfly" src="./assets/butterfly/butterfly.gltf"></a-asset-item>
+            <a-entity id="newEntity" rotation="180 90 0" scale="2"
+                animation="property: rotation; to: 20 -360 -180; loop: true; dur: 50000">
+            </a-entity>
 
-        </a-assets>
+            <a-light type="ambient" intensity="1" color="#445451"></a-light>
+            <a-light type="area" intensity="0.2" position="2 4 4"></a-light>
+            <a-entity geometry="primitive: plane; width: 20; height: auto" material="color: blue"
+                text="value: This text will be 4 units wide."></a-entity>
+            <a-camera gps-camera rotation-reader> </a-camera>
+        </a-scene>
+ 
+    </div>
 
-        <a-entity id="newEntity" rotation="180 90 0" scale="2"
-            animation="property: rotation; to: 20 -360 -180; loop: true; dur: 50000">
-        </a-entity>
+    <div id="credits">
 
-        <a-light type="ambient" intensity="1" color="#445451"></a-light>
-        <a-light type="area" intensity="0.2" position="2 4 4"></a-light>
+        <div class="center">
 
-        <a-camera gps-camera rotation-reader> </a-camera>
-    </a-scene>
+            <h1>Emerald Futures</h1>
+            <p> Thank you for the journey.</p>
+
+            <p> WebAR by <a href="https://yitingliu.com/"> Yiting Liu</a> </p>
+
+            <p> Pieces made by <a href="https://www.instagram.com/chromic_duo/">Chromic Duo</a> (<a
+                    href="https://www.instagram.com/whylucywhy/">Lucy Yao</a>, <a
+                    href="https://www.instagram.com/etaa.dorothy/">Dorothy Chan</a>)
+            </p>
+            <p> In collaboration with <a href="https://nyphil.org/">NYC Philharmonic</a> </p>
+        </div>
+    </div>
+
+
+
 
 
 </body>
@@ -56,39 +171,6 @@
 <script>
     let song;
     let fft, filter, spectrum, level, soundfile, amplitude, scaleVal;
-
-    function preload() {
-        song = loadSound('./assets/Point10.mp3');
-    }
-
-    function setup() {
-        song.play();
-        //song.loop(); // song is ready to play during setup() because it was loaded during preload
-        fft = new p5.FFT();
-        amplitude = new p5.Amplitude();
-        soundfile = new p5.SoundFile();
-
-    }
-
-    function showCredits() {
-        console.log("thank you for listening");
-    }
-    //create a new entity in the scene 
-    function draw() {
-
-        spectrum = fft.analyze();
-        level = amplitude.getLevel();
-
-        // map the value to the following value for scale? can increase the speed of rotation too? 
-        // when the scaleval is up, the amount of stuff gets x times more 
-        scaleVal = map(level, 0, 1, 1.5, 10); //mostly 1- 6 
-        console.log("scaleval is ", scaleVal);
-        populate(scaleVal);
-        frameRate(2);
-        song.onended(showCredits); // it works 
-
-    }
-
     let set = 10;
     let newEntity = document.getElementById('newEntity');
 
@@ -113,6 +195,72 @@
 
     let animations = [anim, anim1, anim2, anim3, anim4, anim5, anim6, anim7];
     let spheres = [sphere, sphere1, sphere2, sphere3, sphere4, sphere5, sphere6, sphere7];
+    let credits = document.getElementById("credits");
+
+    let btn = document.getElementById("myButton");
+    let scene = document.getElementById("scene");
+
+    function preload() {
+        song = loadSound('./assets/Point10.mp3');
+    }
+
+    function setup() {
+        song.play();
+        //song.loop(); // song is ready to play during setup() because it was loaded during preload
+        fft = new p5.FFT();
+        amplitude = new p5.Amplitude();
+        soundfile = new p5.SoundFile();
+
+    }
+
+
+    function keyPressed() {
+        if (keyCode === LEFT_ARROW) {
+
+            showCredits();
+        }
+    }
+
+    let embeddedScene=document.getElementById("embeddedScene");
+    function showCredits() {
+
+
+        //or add a 3d element 
+        // clear all the spheres? 
+
+        if (embeddedScene.style.display == "block") {
+            embeddedScene.style.display = "none";
+        } else {
+            embeddedScene.style.display = "block";
+        }
+
+
+        if (credits.style.display == "none") {
+            credits.style.display = "block";
+        } else {
+            credits.style.display = "none";
+        }
+
+        spheres = [];
+        animations = [];
+
+        console.log("thank you for listening");
+        console.log("spheres[]", spheres);
+        console.log("animations[]", animations);
+    }
+    //create a new entity in the scene 
+    function draw() {
+
+        spectrum = fft.analyze();
+        level = amplitude.getLevel();
+
+        scaleVal = map(level, 0, 1, 1.5, 10); //mostly 1- 6 
+        populate(scaleVal);
+        frameRate(2);
+        song.onended(showCredits); // it works 
+
+    }
+
 
     // let spheres =[sphere,sphere1,sphere2,sphere3];
     // let animations =[anim,anim1,anim2,anim3];
@@ -123,15 +271,13 @@
 
         sphere.object3D.position.set(randX, randY, randZ);
         sphere.object3D.scale.set(scaleVal, scaleVal, scaleVal);
-        // sphere.setAttribute('color', 'red');
         sphere.setAttribute('segment-height', 50 * scaleVal);
         sphere.setAttribute('segment-width', 50 * scaleVal);
-        // sphere.setAttribute('scale', '1 1 1 ');
         sphere.setAttribute('myoffset-updater');
         sphere.setAttribute('material', shader);
         anim.setAttribute('direction', 'alternate-reverse');
         anim.setAttribute('attribute', 'rotation');
-        anim.setAttribute('dur', 50 * scaleVal); // could be slower 
+        anim.setAttribute('dur', 500 * scaleVal); // could be slower 
         anim.setAttribute('from', '1 1 1'); // could be slower 
         anim.setAttribute('to', `${scaleVal},${scaleVal},${scaleVal}`); // could be slower 
         anim.setAttribute('repeat', '0'); // could be slower 
@@ -146,53 +292,43 @@
     function populate(scaleVal) {
 
         let delayTime = 2 * scaleVal;
-        randX = random(-20, 20);
-        randY = random(-5, 15);
-        randZ = random(-20, 20);
-        let selectedCol = ['lightblue', 'lightgreen', 'lightpurple'];
-        let shader, x, y, z;
-        let scale = 1;
 
-        if (scaleVal < 2) {
-
-            scale = 1;
-            shader = `shader: displacement-offset;color:${selectedCol[floor(scaleVal-1)]};`;
-            x = 5;
-            y = 3;
-            z = scaleVal;
-
+        if (spheres != null && animations != null) {
             spheres.forEach(sphere => {
                 animations.forEach(anim => {
+                    randX = random(-20, 20);
+                    randY = random(-5, 15);
+                    randZ = random(-20, 20);
+                    let selectedCol = ['lightblue', 'lightgreen', 'lightpurple'];
+                    let shader, x, y, z;
+                    let scale = 1;
+                    if (scaleVal < 3) {
 
+                        scale = 1;
+                        shader = `shader: displacement-offset;color:${selectedCol[floor(scaleVal-1)]};`;
+                        x = 5;
+                        y = 3;
+                        z = scaleVal;
+
+                        // Sphere(sphere, anim, 1, delayTime,scaleVal*5, scaleVal*3, scaleVal,
+                        //     `shader: displacement-offset;color:${selectedCol[floor(scaleVal-1)]};`);
+                    } else {
+                        // Sphere(sphere, anim, scaleVal, delayTime, randX * scaleVal, randY, randZ,
+                        //     'shader:grid-glitch; color: purple ;timeMsec:20000');
+
+                        scale = scaleVal;
+                        shader = 'shader:grid-glitch; color: purple ;timeMsec:20000';
+                        x = randX;
+                        y = randY;
+                        z = scaleVal * randZ;
+
+                    }
                     Sphere(sphere, anim, scale, delayTime, x, y, z, shader);
-                    // Sphere(sphere, anim, 1, delayTime,scaleVal*5, scaleVal*3, scaleVal,
-                    //     `shader: displacement-offset;color:${selectedCol[floor(scaleVal-1)]};`);
-                });
-            });
-        } else {
-            // Sphere(sphere, anim, scaleVal, delayTime, randX * scaleVal, randY, randZ,
-            //     'shader:grid-glitch; color: purple ;timeMsec:20000');
-            scale = scaleVal;
-            shader = 'shader:grid-glitch; color: purple ;timeMsec:20000';
-            x = randX;
-            y = randY;
-            z = scaleVal * randZ;
 
-            spheres.forEach(sphere => {
-                animations.forEach(anim => {
-
-                    Sphere(sphere, anim, scale, delayTime, x, y, z, shader);
-
-                    // Sphere(sphere, anim, 1, delayTime,scaleVal*5, scaleVal*3, scaleVal,
-                    //     `shader: displacement-offset;color:${selectedCol[floor(scaleVal-1)]};`);
                 });
             });
 
         }
-
-
-
-
 
         // if (scaleVal < 3) {
         //     Sphere(sphere, anim, scaleVal, delayTime, 5 * randX, 0, 0);
@@ -217,24 +353,26 @@
     });
 
 
+    btn.onclick = showVideo();
 
 
-    AFRAME.registerComponent('modify-materials', {
-        init: function () {
-            // Wait for model to load.
-            this.el.addEventListener('model-loaded', () => {
-                // Grab the mesh / scene.
-                const obj = this.el.getObject3D('mesh');
-                // Go over the submeshes and modify materials we want.
-                obj.traverse(node => {
-                    if (node.name.indexOf('ship') !== -1) {
-                        // node.material.color.set('red');
-                    }
 
-                });
-            });
+    //not working 
+    function showVideo() {
+
+        // arjs="sourceType: webcam; debugUIEnabled: false; autoplay:false;"
+
+        if (scene.onload) {
+
+            scene.setAttribute('arjs', 'autoplay:true');
         }
-    });
+        console.log('scene is ', scene);
+
+
+
+    }
 </script>
+
+
 
 </html>
