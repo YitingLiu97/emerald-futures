@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>ChromicDuo EmeraldFuture</title>
+  <script src="./src/p5.min.js"></script>
+  <script src="./src/p5.dom.min.js"></script>
+  <script src="./src/p5.sound.js"></script>
+
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+  <script src="play-all-model-animation.js"></script>
+  <!-- <script src="src/script.js"></script> -->
+  <script src="./src/ocean-plane.js"></script>
+  <script src="./src/displacement-offset-shader.js"></script>
+
+  <style src="style.css"></style>
+</head>
+
+<body>
+  <!-- <button id="myButton" onclick="toggle()">
+    TOGGLE
+  </button> -->
+  <!-- <div id="scene" style="display: none;">
+</div> -->
+
+  <!-- <div id="intro" style="display: block;">
+    </div> -->
+
+  <a-scene vr-mode-ui="enabled: false" arjs="sourceType: webcam; debugUIEnabled: false;">
+
+    <a-assets>
+      <img id="water-normal" src="//raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/waternormals.jpg"
+        crossorigin="anonymous" />
+
+      <img id="boxTexture" src="https://i.imgur.com/mYmmbrp.jpg">
+      <img id="skyTexture" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg">
+      <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg">
+      <!-- <audio id="ambient" src="./assets/Point10.mp3" ></audio> -->
+      <a-asset-item id="flower" src="./assets/flower/scene.gltf"></a-asset-item>
+      <a-asset-item id="bird" src="./assets/bird/scene.gltf"></a-asset-item>
+      <a-asset-item id="butterfly" src="./assets/butterfly/butterfly.gltf"></a-asset-item>
+
+    </a-assets>
+
+    <!-- <a-entity id="#ambientSound" sound="src:#ambient; loop:false;"></a-entity> -->
+    <!-- <a-entity position="10 0 0" scale="0.02 0.02 0.02" gltf-model="#flower" play-all-model-animations
+        modify-materials>
+      </a-entity>
+      <a-entity position="5 0 0" scale="0.002 0.002 0.002" gltf-model="#butterfly" autoscale="0.2"
+        play-all-model-animations modify-materials></a-entity> -->
+    <!-- <a-entity rotation="0 0 0" animation="property: rotation; to: 0 360 0; loop: true; dur: 30000">
+      <a-sphere material="shader:displacement-offset" myoffset-updater scale="1 1 1" radius="0.2" position="20 0 0"
+        segments-height="128" segments-width="128">
+        <a-animation attribute="scale" direction="alternate-reverse" dur="5000" from="1 1 1" to="10 10 10"
+          repeat="indefinite"></a-animation>
+      </a-sphere>
+
+      <a-sphere position="0 10 0" material="shader:displacement-offset"></a-sphere>
+
+    </a-entity> -->
+
+    <!-- <a-entity rotation="0 0 90" animation="property: rotation; to: 0 360 20; loop: true; dur: 50000">
+      <a-sphere material="shader:displacement-offset" myoffset-updater scale="1 1 1" radius="1" position="0 8 -5"
+        segments-height="50" segments-width="50">
+        <a-animation attribute="rotation" direction="alternate-reverse" dur="5000" from="1 2 1" to="4 8 4"
+          repeat="indefinite"></a-animation>
+      </a-sphere>
+
+      <a-sphere material="shader:displacement-offset" myoffset-updater scale="1 1 1" radius="0.8" position="5 18 -5"
+        segments-height="500" segments-width="500">
+        <a-animation attribute="rotation" direction="alternate-reverse" dur="50000" from="1 1 1" to="4 8 4"
+          repeat="indefinite"></a-animation>
+      </a-sphere>
+
+      <a-sphere material="shader:displacement-offset" myoffset-updater scale="1 1 1" radius="0.2" position="2 2 -2"
+        segments-height="50" segments-width="50">
+        <a-animation attribute="rotation" direction="alternate-reverse" dur="5000" from="1 2 1" to="4 8 4"
+          repeat="indefinite"></a-animation>
+      </a-sphere>
+
+    </a-entity> -->
+
+    <!-- 
+    <a-entity id="example" rotation="180 90 0" animation="property: rotation; to: 20 -360 -180; loop: true; dur: 50000">
+      <a-sphere material="shader:displacement-offset" myoffset-updater scale="1 1 1" radius="1" position="0 8 -5"
+        segments-height="50" segments-width="50">
+        <a-animation attribute="rotation" direction="alternate-reverse" dur="5000" from="1 1 1" to="2 2 2 "
+          repeat="indefinite"></a-animation>
+      </a-sphere>
+
+      <a-sphere material="shader:displacement-offset" myoffset-updater scale="1 1 1" radius="2" position="-10 18 -5"
+        segments-height="500" segments-width="500">
+        <a-animation attribute="rotation" direction="reverse" dur="50000" from="1 1 1" to="4 8 4" repeat="indefinite">
+        </a-animation>
+      </a-sphere>
+
+      <a-sphere material="shader:displacement-offset" myoffset-updater scale="1 1 1" radius="0.8" position="2 2 -2"
+        segments-height="50" segments-width="50">
+        <a-animation attribute="rotation" direction="alternate-reverse" dur="5000" from="1 2 1" to="5 5 5 "
+          repeat="indefinite"></a-animation>
+      </a-sphere>
+
+    </a-entity> -->
+
+
+    <!-- displacement offset shader -->
+    <!-- <a-sphere material="shader:displacement-offset" myoffset-updater scale="1 1 1" radius="0.2" position="-5 3 -2"
+      segments-height="128" segments-width="128">
+      <a-animation attribute="scale" direction="alternate-reverse" dur="5000" from="1 2 1" to="4 4 4"
+        repeat="indefinite"></a-animation>
+    </a-sphere>
+
+    <a-sphere material="shader:displacement-offset" myoffset-updater scale="1 1 1" radius="0.2" position="2 1.5 -2"
+      segments-height="100" segments-width="80">
+      <a-animation attribute="position" direction="alternate-reverse" dur="1000" from="1 1 1" to="4 4 4"
+        repeat="indefinite"></a-animation>
+    </a-sphere>
+    <a-sphere material="shader:displacement-offset" myoffset-updater scale="1 1 1" radius="0.2" position="2 5 -2"
+      segments-height="100" segments-width="100">
+      <a-animation attribute="position" direction="alternate-reverse" dur="800" from="1 1 1" to="3 3 3"
+        repeat="indefinite"></a-animation>
+    </a-sphere>
+
+    <a-sphere material="shader:displacement-offset" myoffset-updater scale="1 1 1" radius="0.4" position="7 1.5 -2"
+      segments-height="100" segments-width="100">
+      <a-animation attribute="position" direction="alternate-reverse" dur="10000" from="1 1 1" to="2 2 2 "
+        repeat="indefinite"></a-animation>
+    </a-sphere>
+
+    <a-sphere material="shader:displacement-offset" myoffset-updater scale="1 1 1" radius="0.8" position="2 .5 5"
+      segments-height="40" segments-width="40">
+      <a-animation attribute="position" direction="alternate-reverse" dur="1000" from="1 1 1" to="4 4 4"
+        repeat="indefinite"></a-animation>
+    </a-sphere>
+
+
+    <a-sphere material="shader:displacement-offset" myoffset-updater scale="1 1 1" radius="0.2" position="0 8 -5"
+      segments-height="50" segments-width="50">
+      <a-animation attribute="rotation" direction="alternate-reverse" dur="5000" from="1 2 1" to="4 8 4"
+        repeat="indefinite"></a-animation>
+    </a-sphere> -->
+    <!-- can add dynamic lighting in it  -->
+
+    <!-- <a-ocean-plane id="oceanShader" position="0 0 -1" material="normalMap: #water-normal; sphericalEnvMap: #groundTexture;"></a-ocean-plane> -->
+
+    <!-- <a-sky src="#skyTexture" radius="100"> </a-sky> -->
+    <!-- <a-entity rotation="0 0 0" animation="property: rotation; to: 0 360 0; loop: true; dur: 10000">
+      <a-sphere position="5 0 0" color="mediumseagreen"></a-sphere>
+</a-entity> -->
+
+    <!-- put the entity animation in the html -->
+
+
+
+
+    <a-entity id="newEntity" rotation="180 90 0"
+      animation="property: rotation; to: 20 -360 -180; loop: true; dur: 50000" material="shader: flat; color: red">
+    </a-entity>
+
+    <a-light type="ambient" intensity="1" color="#445451"></a-light>
+    <a-light type="area" intensity="0.2" position="2 4 4"></a-light>
+
+    <a-camera gps-camera rotation-reader> </a-camera>
+  </a-scene>
+
+
+</body>
+
+
+
+<script>
+  let song;
+  let fft, filter, spectrum, peakDetect, level, soundfile, amplitude, scaleVal;
+
+  function preload() {
+    song = loadSound('./assets/Point10.mp3');
+  }
+
+  function setup() {
+    song.play();
+    //song.loop(); // song is ready to play during setup() because it was loaded during preload
+    fft = new p5.FFT();
+    amplitude = new p5.Amplitude();
+    soundfile = new p5.SoundFile();
+    // filter = new p5.BandPass();
+    // filter.process(soundfile);
+    // filter.set(2000,1);
+    // console.log(filter);
+    // peakDetect = new p5.PeakDetect();
+
+
+  }
+
+  function showCredits() {
+    console.log("thank you for listening");
+
+
+  }
+  //create a new entity in the scene 
+  function draw() {
+
+    frameRate(2);
+    spectrum = fft.analyze();
+    level = amplitude.getLevel();
+    console.log('level is ', level);
+    // map the value to the following value for scale? can increase the speed of rotation too? 
+    // when the scaleval is up, the amount of stuff gets x times more 
+    scaleVal = map(level, 0, 1, 1.5, 10); //mostly 1- 6 
+    console.log("scaleval is ", scaleVal);
+    populate(scaleVal);
+    song.onended(showCredits); // it works 
+
+  }
+
+  // avoid the touch cuz it will pause the audio?
+  // function mousePressed() {
+  //   if (song.isPlaying()) {
+  //     // .isPlaying() returns a boolean
+  //     song.pause(); // .play() will resume from .pause() position
+
+  //   } else {
+  //     song.play();
+  //   }
+
+  // }
+
+
+
+  //////////////////////////////////
+  scene = document.querySelector('a-scene');
+  let set = 10;
+
+  let spheres = []; // make 10 when scaleVal is 1? 
+  let animations = [];
+
+  let newEntity = document.getElementById('newEntity');
+
+  let sphere = document.createElement('a-sphere'); //creating child for entity 
+  let anim = document.createElement('a-animation');
+
+
+  //high pass 500hz
+  // low pass 
+  // let randCol=(random(255),random(255),random(255));
+
+  function Sphere(scaleVal, delayTime) {
+
+    randX = random(-20, 30);
+    randY = random(-5, 15);
+    randZ = random(-20, 20);
+    if(sphereArr.length<20){
+    sphereArr.push(sphere);
+  }
+  console.log("sphere arr is ",sphereArr);
+
+
+    sphere = document.createElement('a-sphere'); //creating child for entity 
+    sphere.id="sphere";
+    anim = document.createElement('a-animation');
+    sphere.object3D.position.set(randX, randY, randZ);
+
+    // not working 
+    if (scaleVal > 10) {
+      sphere.setAttribute('material', 'shader: displacement-offset');
+    } else {
+
+      sphere.setAttribute('material', 'shader: flat;color:red;');
+
+    }
+    sphere.object3D.scale.set(scaleVal,scaleVal,scaleVal);
+    console.log("sphere scale is",    sphere.object3D.scale.set(scaleVal,scaleVal,scaleVal) );
+    sphere.setAttribute('segment-height', 50 * scaleVal);
+    sphere.setAttribute('segment-width', 50 * scaleVal);
+    sphere.setAttribute('scale', '1 1 1');
+    sphere.setAttribute('myoffset-updater');
+    sphere.setAttribute('material', 'shader: displacement-offset');
+
+    //sphere.setAttribute('color', 'red');
+    // anim.setAttribute('animation','property:components.material.material.color;type:color;to:blue;dur:500;dir:alternate;loop:true;');
+
+    anim.setAttribute('direction', 'alternate-reverse');
+    anim.setAttribute('attribute', 'position');
+    anim.setAttribute('dur', 50 * scaleVal); // could be slower 
+    anim.setAttribute('from', '1 2 1'); // could be slower 
+    anim.setAttribute('to', '10 10 10'); // could be slower 
+    anim.setAttribute('repeat', '0'); // could be slower 
+    anim.setAttribute('easing', 'indefinite'); // could be slower 
+    anim.setAttribute('delay', 5000 * delayTime); // could be slower 
+
+    // sphere.parentNode.removeChild(sphere);
+
+
+    sphere.appendChild(anim);
+    newEntity.appendChild(sphere);
+
+
+  }
+
+
+  // can create different shapes and set it up at differnt times 
+
+let sphereArr=[];
+
+  function populate(scaleVal) {
+
+
+    //randomize the position x y z within a radius of 20? -10 and 10 
+    let delayTime = 2 * scaleVal;
+    //Sphere(scaleVal, delayTime);
+    // let spheres = document.getElementById('sphere');
+    
+
+    Sphere(scaleVal, delayTime);
+
+    sphereArr.forEach(e=>{
+      e.object3D.scale.set(scaleVal);
+    })
+  //   if(sphereArr.length<20){
+  //   sphereArr.push(Sphere(scaleVal, delayTime));
+  // }
+// console.log("sphere arr is ",sphereArr);
+    // for(let i =0; i <spheres.length;i++){
+    //   spheres[i].object3D.scale.set(scaleVal);
+
+    //  }
+  }
+
+
+
+  // can add how many spheres I want based on the music 
+
+  // console.log("new entity is ", newEntity);
+  // console.log("animation is ", anim);
+  // console.log("sphere is ", sphere);
+  AFRAME.registerComponent('custom-material', {
+    schema: {
+      // Add properties.
+    },
+
+    init: function () {
+      this.material = this.el.getOrCreateObject3D('mesh').material = new THREE.ShaderMaterial({
+
+      });
+    },
+
+    update: function () {
+      // Update `this.material`.
+    }
+  });
+
+  AFRAME.registerComponent('modify-materials', {
+    init: function () {
+      // Wait for model to load.
+      this.el.addEventListener('model-loaded', () => {
+        // Grab the mesh / scene.
+        const obj = this.el.getObject3D('mesh');
+        // Go over the submeshes and modify materials we want.
+        obj.traverse(node => {
+          if (node.name.indexOf('ship') !== -1) {
+            // node.material.color.set('red');
+          }
+
+        });
+      });
+    }
+  });
+</script>
+
+</html>
