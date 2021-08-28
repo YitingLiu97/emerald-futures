@@ -77,7 +77,7 @@
     //create a new entity in the scene 
     function draw() {
 
-       // frameRate(2);
+        // frameRate(2);
         spectrum = fft.analyze();
         level = amplitude.getLevel();
         console.log('level is ', level);
@@ -90,16 +90,7 @@
 
     }
 
-
-
-
-    //////////////////////////////////
-    scene = document.querySelector('a-scene');
     let set = 10;
-
-    let spheres = []; // make 10 when scaleVal is 1? 
-    let animations = [];
-
     let newEntity = document.getElementById('newEntity');
 
     let sphere = document.createElement('a-sphere'); //creating child for entity 
@@ -121,15 +112,17 @@
     sphere7 = document.createElement('a-sphere'); //creating child for entity 
     anim7 = document.createElement('a-animation');
 
-  
+    let animations = [anim,anim1,anim2,anim3,anim4,anim5,anim6,anim7];
+    let spheres = [sphere,sphere1,sphere2,sphere3,sphere4,sphere5,sphere6,sphere7];
+
     // let spheres =[sphere,sphere1,sphere2,sphere3];
     // let animations =[anim,anim1,anim2,anim3];
 
-    function Sphere(sphere, anim, scaleVal, delayTime,randX,randY,randZ) {
+    function Sphere(sphere, anim, scaleVal, delayTime, randX, randY, randZ) {
 
         sphere.id = "sphere";
-        sphere.object3D.position.set(randX,randY,randZ);
-        sphere.object3D.scale.set(scaleVal,scaleVal,scaleVal);
+        sphere.object3D.position.set(randX, randY, randZ);
+        sphere.object3D.scale.set(scaleVal, scaleVal, scaleVal);
         sphere.setAttribute('material', 'shader: displacement-offset');
         sphere.setAttribute('segment-height', 50 * scaleVal);
         sphere.setAttribute('segment-width', 50 * scaleVal);
@@ -152,36 +145,35 @@
     // can create different shapes and set it up at differnt times 
 
     function populate(scaleVal) {
-      
+
 
         let delayTime = 2 * scaleVal;
 
-        if(scaleVal<3){
-            Sphere(sphere, anim,scaleVal, delayTime,5*randX,0,0);
-       Sphere(sphere1, anim1,scaleVal/2, delayTime,3,2*randY,0);
-       Sphere(sphere2, anim2,scaleVal/3, delayTime,0,8,randZ);
-       Sphere(sphere3, anim3,scaleVal, delayTime*3,2-randX,8,0);
-    }else{
-        Sphere(sphere, anim,scaleVal, delayTime,5*randX,0,0);
-       Sphere(sphere1, anim1,scaleVal/2, delayTime,3,2*randY,0);
-       Sphere(sphere2, anim2,scaleVal/3, delayTime,0,8,randZ);
-       Sphere(sphere3, anim3,scaleVal, delayTime*3,2-randX,8,20);
-       Sphere(sphere4, anim4,scaleVal, delayTime,10*randX,randZ,randY);
-       Sphere(sphere5, anim5,scaleVal/2, delayTime,-3,3*randY,-2);
-       Sphere(sphere6, anim6,scaleVal/3, delayTime,10,8,randZ);
-       Sphere(sphere7, anim7,scaleVal, delayTime*3,2-randX,8,-20);
-    }
+        if (scaleVal < 3) {
+            Sphere(sphere, anim, scaleVal, delayTime, 5 * randX, 0, 0);
+            Sphere(sphere1, anim1, scaleVal / 2, delayTime, 3, 2 * randY, 0);
+            Sphere(sphere2, anim2, scaleVal / 3, delayTime, 0, 8, randZ);
+            Sphere(sphere3, anim3, scaleVal, delayTime * 3, 2 - randX, 8, 0);
+        } else {
+            Sphere(sphere, anim, scaleVal, delayTime, 5 * randX, 0, 0);
+            Sphere(sphere1, anim1, scaleVal / 2, delayTime, 3, 2 * randY, 0);
+            Sphere(sphere2, anim2, scaleVal / 3, delayTime, 0, 8, randZ);
+            Sphere(sphere3, anim3, scaleVal, delayTime * 3, 2 - randX, 8, 20);
+            Sphere(sphere4, anim4, scaleVal, delayTime, 10 * randX, randZ, randY);
+            Sphere(sphere5, anim5, scaleVal / 2, delayTime, -3, 3 * randY, -2);
+            Sphere(sphere6, anim6, scaleVal / 3, delayTime, 10, 8, randZ);
+            Sphere(sphere7, anim7, scaleVal, delayTime * 3, 2 - randX, 8, -20);
+        }
 
 
     }
-    newEntity.appendChild(sphere);
-    newEntity.appendChild(sphere1);
-    newEntity.appendChild(sphere2);
-    newEntity.appendChild(sphere3);
-    newEntity.appendChild(sphere4);
-    newEntity.appendChild(sphere5);
-    newEntity.appendChild(sphere6);
-    newEntity.appendChild(sphere7);
+
+    spheres.forEach(element => {
+        newEntity.appendChild(element);
+    });
+
+
+    
 
     AFRAME.registerComponent('modify-materials', {
         init: function () {
