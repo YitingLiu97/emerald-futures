@@ -114,7 +114,9 @@ float pnoise3(vec3 P, vec3 rep)
 AFRAME.registerShader('displacement-offset', {
   schema: {
     timeMsec: {type:'time', is:'uniform'},
-    myOffset: {type:'vec3', is:'uniform'}
+    myOffset: {type:'vec3', is:'uniform'},
+    color: {type: 'color', is: 'uniform'}
+    
   },
   vertexShader: pnoise3 + `
 
@@ -128,6 +130,7 @@ AFRAME.registerShader('displacement-offset', {
 varying float noise;
 uniform float timeMsec; // A-Frame time in milliseconds.
 uniform vec3 myOffset;
+
 
 float turbulence( vec3 p ) {
 
@@ -157,11 +160,12 @@ void main() {
   fragmentShader: `
 
 varying float noise;
+uniform vec3 color;
 
 void main() {
 
-  vec3 color = vec3(1. - 2. * noise);
-  gl_FragColor = vec4( color.rgb, 1.0 );
+  vec3 color = vec3(1. - 2. * noise)*color;
+  gl_FragColor = vec4( color, 1.0 );
 
 }
 
