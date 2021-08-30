@@ -140,9 +140,10 @@
                 text="value: This text will be 4 units wide."></a-entity>
             <a-camera gps-camera rotation-reader> </a-camera>
         </a-scene>
+
+      
  
     </div>
-
     <div id="credits">
 
         <div class="center">
@@ -160,6 +161,7 @@
         </div>
     </div>
 
+   
 
 
 
@@ -199,6 +201,7 @@
 
     let btn = document.getElementById("myButton");
     let scene = document.getElementById("scene");
+    let embeddedScene=document.getElementById("embeddedScene");
 
     function preload() {
         song = loadSound('./assets/Point10.mp3');
@@ -221,7 +224,6 @@
         }
     }
 
-    let embeddedScene=document.getElementById("embeddedScene");
     function showCredits() {
 
 
