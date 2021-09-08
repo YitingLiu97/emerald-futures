@@ -136,8 +136,8 @@
 
             <a-light type="ambient" intensity="1" color="#445451"></a-light>
             <a-light type="area" intensity="0.2" position="2 4 4"></a-light>
-            <a-entity geometry="primitive: plane; width: 20; height: auto" material="color: blue"
-                text="value: This text will be 4 units wide."></a-entity>
+            <!-- <a-entity geometry="primitive: plane; width: 20; height: auto" material="color: blue"
+                text="value: This text will be 4 units wide."></a-entity> -->
             <a-camera gps-camera rotation-reader> </a-camera>
         </a-scene>
 
@@ -204,7 +204,7 @@
     let embeddedScene=document.getElementById("embeddedScene");
 
     function preload() {
-        song = loadSound('./assets/Point10.mp3');
+        song = loadSound('./assets/Point10-2.mp3');
     }
 
     function setup() {
