@@ -260,7 +260,7 @@
     // let spheres =[sphere,sphere1,sphere2,sphere3];
     // let animations =[anim,anim1,anim2,anim3];
 
-    function Sphere(sphere, anim, scaleVal, delayTime, randX, randY, randZ, shader) {
+    function Sphere(sphere, anim, scaleVal, delayTime, duration, randX, randY, randZ, shader) {
 
         sphere.id = "sphere";
 
@@ -272,7 +272,7 @@
         sphere.setAttribute('material', shader);
         anim.setAttribute('direction', 'alternate-reverse');
         anim.setAttribute('attribute', 'rotation');
-        anim.setAttribute('dur', 500 * scaleVal); // could be slower 
+        anim.setAttribute('dur', duration); // could be slower 
         anim.setAttribute('from', '1 1 1'); // could be slower 
         anim.setAttribute('to', `${scaleVal},${scaleVal},${scaleVal}`); // could be slower 
         anim.setAttribute('repeat', '0'); // could be slower 
@@ -328,7 +328,7 @@
 
                         scale = 1;
                         shader = `shader: displacement-offset;color:${selectedCol[floor(scaleVal-1)]};`;
-                        Sphere(sphere, anim, scale, delayTime, x, y, z, shader);
+                        Sphere(sphere, anim, scale, delayTime, random(500),x, y, z, shader);
  // x = random(5);
                         // y = random(3);
                         // z = scale;
@@ -343,7 +343,7 @@
                         scale = scaleVal;
                         shader = 'shader:grid-glitch; color: purple ;timeMsec:20000';
                        // Sphere(sphere, anim, scale * 1.5, delayTime + random(1000), x, y, z, shader);
-                       Sphere(sphere, anim, scale*4, delayTime, x, y, z, shader);
+                       Sphere(sphere, anim, scale*4, delayTime, random(500,2000),x, y, z, shader);
 
                     }
 
