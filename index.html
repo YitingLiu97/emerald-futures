@@ -12,10 +12,10 @@
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
-    <script src="play-all-model-animation.js"></script>
+    <script src="./src/play-all-model-animation.js"></script>
     <script src="./src/displacement-offset-shader.js"></script>
     <script src="./src/shader-grid-glitch.js"></script>
-    <link rel="stylesheet" href="./styles.css">
+    <!-- <link rel="stylesheet" href="./styles.css"> -->
 
     <!-- adding google analytics -->
 
@@ -34,19 +34,6 @@
         height: 100vh;
 
     }
-
-
-
-    /* #intro {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    text-align: left;
-    z-index: -1;
-    display: block;
-    overflow: hidden;
-    background: green;
-} */
 
 
     #credits {
@@ -123,12 +110,14 @@
         <div id="htmlElement" style="background: #F8F8F8; color: #333; font-size: 48px">Welcome to!</div>
     </div>
 -->
-<!-- the background is still camera -->
+    <!-- the background is still camera -->
     <div id="embeddedScene" style="z-index:-1;display:block;">
         <a-scene id="scene"
             loading-screen=" dotsColor:lightblue;backgroundColor: lightblue; enabled: false;autoplay:false;"
             vr-mode-ui="enabled: false" arjs="sourceType: webcam; debugUIEnabled: false;autoplay:false;">
 
+            <!-- <a-entity geometry="primitive: box" material="visible:false;color: red"></a-entity> -->
+            <a-entity geometry="primitive: circle" material="shader: flat; color: red"></a-entity>
 
             <a-entity id="newEntity" rotation="180 90 0" scale="2"
                 animation="property: rotation; to: 20 -360 -180; loop: true; dur: 50000">
@@ -136,13 +125,11 @@
 
             <a-light type="ambient" intensity="1" color="#445451"></a-light>
             <a-light type="area" intensity="0.2" position="2 4 4"></a-light>
-            <!-- <a-entity geometry="primitive: plane; width: 20; height: auto" material="color: blue"
-                text="value: This text will be 4 units wide."></a-entity> -->
             <a-camera gps-camera rotation-reader> </a-camera>
         </a-scene>
 
-      
- 
+
+
     </div>
     <div id="credits">
 
@@ -160,21 +147,16 @@
             <p> In collaboration with <a href="https://nyphil.org/">NYC Philharmonic</a> </p>
         </div>
     </div>
-
-   
-
-
-
-
 </body>
-
-
 
 <script>
     let song;
     let fft, filter, spectrum, level, soundfile, amplitude, scaleVal;
     let set = 10;
     let newEntity = document.getElementById('newEntity');
+
+
+    //let triangleGroup = document.getElementById("triangleGroup");
 
     let sphere = document.createElement('a-sphere'); //creating child for entity 
     let anim = document.createElement('a-animation');
@@ -194,14 +176,25 @@
     anim6 = document.createElement('a-animation');
     sphere7 = document.createElement('a-sphere'); //creating child for entity 
     anim7 = document.createElement('a-animation');
+    sphere8 = document.createElement('a-sphere'); //creating child for entity 
+    anim8 = document.createElement('a-animation');
+    sphere9 = document.createElement('a-sphere'); //creating child for entity 
+    anim9 = document.createElement('a-animation');
+    sphere10 = document.createElement('a-sphere'); //creating child for entity 
+    anim10 = document.createElement('a-animation');
+    sphere11 = document.createElement('a-sphere'); //creating child for entity 
+    anim11 = document.createElement('a-animation');
+    sphere12 = document.createElement('a-sphere'); //creating child for entity 
+    anim12 = document.createElement('a-animation');
 
-    let animations = [anim, anim1, anim2, anim3, anim4, anim5, anim6, anim7];
-    let spheres = [sphere, sphere1, sphere2, sphere3, sphere4, sphere5, sphere6, sphere7];
+
+    let animations = [anim, anim1, anim2, anim3, anim4, anim5, anim6, anim7,anim8,anim9,anim10,anim11,anim12];
+    let spheres = [sphere, sphere1, sphere2, sphere3, sphere4, sphere5, sphere6, sphere7,sphere8,sphere9,sphere10,sphere11,sphere12];
     let credits = document.getElementById("credits");
 
     let btn = document.getElementById("myButton");
     let scene = document.getElementById("scene");
-    let embeddedScene=document.getElementById("embeddedScene");
+    let embeddedScene = document.getElementById("embeddedScene");
 
     function preload() {
         song = loadSound('./assets/Point10-2.mp3');
@@ -258,7 +251,7 @@
 
         scaleVal = map(level, 0, 1, 1.5, 10); //mostly 1- 6 
         populate(scaleVal);
-        frameRate(2);
+        frameRate(scaleVal*4);
         song.onended(showCredits); // it works 
 
     }
@@ -289,28 +282,57 @@
         sphere.appendChild(anim);
     }
 
+    //     function Triangle(triangle, anim, scaleVal, delayTime, randX, randY, randZ, shader) {
+
+    // triangle.id = "triangle";
+
+    // triangle.object3D.position.set(randX, randY, randZ);
+    // triangle.object3D.scale.set(scaleVal, scaleVal, scaleVal);
+    // triangle.setAttribute('segment-height', 50 * scaleVal);
+    // triangle.setAttribute('segment-width', 50 * scaleVal);
+    // triangle.setAttribute('myoffset-updater');
+    // triangle.setAttribute('material', shader);
+    // anim.setAttribute('direction', 'alternate-reverse');
+    // anim.setAttribute('attribute', 'rotation');
+    // anim.setAttribute('dur', 500 * scaleVal); // could be slower 
+    // anim.setAttribute('from', '1 1 1'); // could be slower 
+    // anim.setAttribute('to', `${scaleVal},${scaleVal},${scaleVal}`); // could be slower 
+    // anim.setAttribute('repeat', '0'); // could be slower 
+    // anim.setAttribute('easing', 'indefinite'); // could be slower 
+    // anim.setAttribute('delay', 5000 * delayTime); // could be slower 
+
+    // triangle.appendChild(anim);
+    // }
+
     // can create different shapes and set it up at differnt times 
 
     function populate(scaleVal) {
 
         let delayTime = 2 * scaleVal;
+        let selectedCol = ['lightblue', 'lightgreen', 'lightpurple'];
+        let shader, x, y, z;
+        let scale = 1;
+        randX = random(-10, 10);
+        randY = random(-5, 15);
+        randZ = random(-20, 20);
+        x = randX;
+        y = randY;
+        z = scaleVal * randZ;
 
         if (spheres != null && animations != null) {
             spheres.forEach(sphere => {
                 animations.forEach(anim => {
-                    randX = random(-20, 20);
-                    randY = random(-5, 15);
-                    randZ = random(-20, 20);
-                    let selectedCol = ['lightblue', 'lightgreen', 'lightpurple'];
-                    let shader, x, y, z;
-                    let scale = 1;
+
+// visible to change - for butterflies 
                     if (scaleVal < 3) {
 
                         scale = 1;
                         shader = `shader: displacement-offset;color:${selectedCol[floor(scaleVal-1)]};`;
-                        x = 5;
-                        y = 3;
-                        z = scaleVal;
+                        Sphere(sphere, anim, scale, delayTime, x, y, z, shader);
+ // x = random(5);
+                        // y = random(3);
+                        // z = scale;
+                        // Sphere(sphere, anim, scale, delayTime, x, y, z, shader);
 
                         // Sphere(sphere, anim, 1, delayTime,scaleVal*5, scaleVal*3, scaleVal,
                         //     `shader: displacement-offset;color:${selectedCol[floor(scaleVal-1)]};`);
@@ -320,15 +342,19 @@
 
                         scale = scaleVal;
                         shader = 'shader:grid-glitch; color: purple ;timeMsec:20000';
-                        x = randX;
-                        y = randY;
-                        z = scaleVal * randZ;
+                       // Sphere(sphere, anim, scale * 1.5, delayTime + random(1000), x, y, z, shader);
+                       Sphere(sphere, anim, scale*4, delayTime, x, y, z, shader);
 
                     }
-                    Sphere(sphere, anim, scale, delayTime, x, y, z, shader);
+
+
 
                 });
+               // Sphere(sphere, anim, scale * 5, delayTime + random(1000), x, y*5, z*10, shader);
+
             });
+
+
 
         }
 
@@ -358,11 +384,8 @@
     btn.onclick = showVideo();
 
 
-
     //not working 
     function showVideo() {
-
-        // arjs="sourceType: webcam; debugUIEnabled: false; autoplay:false;"
 
         if (scene.onload) {
 
